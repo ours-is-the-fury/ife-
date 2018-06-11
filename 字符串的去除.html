@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>IFE ECMAScript</title>
+</head>
+<script>
+
+    /* 实现一个字符串头尾去除空格的函数 注意需要去除的空格，包括全角、半角空格 暂时不需要学习和使用正则表达式的方式 */
+    function diyTrim(str) {
+        var val = str.split("");
+        if(val.length==0){
+            return "";
+        }
+        if((val.length==1)&&(val.indexOf(" ") == 0 || val.indexOf("　") == 0)){
+            return "";
+        }
+        while (val.indexOf(" ") == 0 || val.indexOf("　") == 0) {
+            val.splice(0, 1);
+        }
+        while (val.lastIndexOf(" ") == val.length - 1 || val.lastIndexOf("　") == val.length - 1) {
+            val.splice(val.length - 1, 1);
+        }
+        return val.join("");
+    }
+    // 测试用例
+    console.log(diyTrim(' a f b    ')); // ->a f b
+    console.log(diyTrim('    ffdaf    ')); // ->ffdaf
+    console.log(diyTrim('1    ')); // ->1
+    console.log(diyTrim('　　f')); // ->f
+    console.log(diyTrim('  　  a f b 　　 ')); // ->a f b
+    console.log(diyTrim(' ')); // ->
+    console.log(diyTrim('　')); // ->
+    console.log(diyTrim('')); // ->
+
+    /* 去掉字符串str中，连续重复的地方*/
+    function removeRepetition(str) {
+        var val = str.split("");
+        for (i = 0; i < val.length - 1; i++) {
+            if (val[i] == val[i + 1]) {
+                val.splice(i, 1);
+                i = i - 1;
+            }
+        }
+        return val.join("");
+    }
+
+    // 测试用例
+    console.log(removeRepetition("aaa")); // ->a
+    console.log(removeRepetition("abbba")); // ->aba
+    console.log(removeRepetition("aabbaabb")); // ->abab
+    console.log(removeRepetition("")); // ->
+    console.log(removeRepetition("abc")); // ->abc
+</script>
+
+</html>

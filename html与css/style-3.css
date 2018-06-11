@@ -1,0 +1,26 @@
+*{padding:0;margin:0;}
+.main{
+  width: 100%;
+  position: relative; 
+}
+.left{
+  width:100px;
+  height:500px;
+  background-color:red;
+  position: absolute;
+}
+.middle{
+  background-color:yellow;
+  height:500px;
+  margin-left:100px;
+  margin-right:100px;
+
+}
+.right{
+  width:100px;
+  height:500px;
+  background-color:blue;
+  position: absolute;
+  left:calc(100% - 100px);
+  top:0;
+}

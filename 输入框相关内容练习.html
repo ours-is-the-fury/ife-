@@ -1,0 +1,142 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>IFE ECMAScript</title>
+</head>
+<div>
+    <label>String A:
+        <input id="radio-a" type="radio" name="str-obj" value="a">
+    </label>
+    <textarea id="str-a"></textarea>
+    <label>String B:
+        <input id="radio-b" type="radio" name="str-obj" value="b">
+    </label>
+    <textarea id="str-b"></textarea>
+    <label>Num A：
+        <input id="num-a" type="number" value="0">
+    </label>
+    <label>Num B：
+        <input id="num-b" type="number" value="1">
+    </label>
+</div>
+<div>
+    <button id="btn1">获取当前选中输入的内容长度</button>
+    <br>
+    <br>
+    <button id="btn2">当前选中输入中的第3个字符</button>
+    <br>
+    <br>
+    <button id="btn3">把两个输入框的文字连接在一起输出（concat）</button>
+    <br>
+    <br>
+    <button id="btn4">输入B中的内容，在输入A的内容中第一次出现的位置（indexOf）</button>
+    <br>
+    <br>
+    <button id="btn5">输入A中的内容，在输入B的内容中最后一次出现的位置（lastIndexOf）</button>
+    <br>
+    <br>
+    <button id="btn6">使用slice获取选中输入框内容的部分内容，参数为num-a及num-b</button>
+    <br>
+    <br>
+    <button id="btn7">当前选中输入框的行数</button>
+    <br>
+    <br>
+    <button id="btn8">使用substr获取选中输入框内容的子字符串，参数为num-a及num-b</button>
+    <br>
+    <br>
+    <button id="btn9">把所选输入框中的内容全部转为大写</button>
+    <br>
+    <br>
+    <button id="btn10">把所选输入框中的内容全部转为小写</button>
+    <br>
+    <br>
+    <button id="btn11">把所选输入框中内容的半角空格全部去除</button>
+    <br>
+    <br>
+    <button id="btn12">把所选输入框中内容的a全部替换成另外一个输入框中的内容</button>
+    <br>
+    <br>
+</div>
+<p id="result"></p>
+<script>
+    var a = document.querySelector('#radio-a');
+    var b = document.querySelector('#radio-b');
+    var c = document.querySelector('#str-a');
+    var d = document.querySelector('#str-b');
+    var e = document.querySelector('#num-a');
+    var f = document.querySelector('#num-b');
+    var g = document.querySelector('#result');
+    var val;
+    a.addEventListener("click", function () {
+        val = c.value.toString();
+        c1 = 0;
+    });
+    b.addEventListener("click", function () {
+        val = d.value.toString();
+        c1 = 1;
+    });
+    //1
+    document.querySelector('#btn1').addEventListener('click', function () {
+        g.innerHTML = val.replace(/[\u0391-\uFFE5]/g, "aa").length;
+    })
+    //2
+    document.querySelector('#btn2').addEventListener('click', function () {
+        g.innerHTML = val.charAt(2);
+    })
+    //3
+    document.querySelector('#btn3').addEventListener('click', function () {
+        g.innerHTML = c.value + d.value;
+    })
+    //4
+    document.querySelector('#btn4').addEventListener('click', function () {
+        g.innerHTML = c.value.toString().indexOf(d.value.toString());
+    })
+    //5
+    document.querySelector('#btn5').addEventListener('click', function () {
+        g.innerHTML = d.value.toString().lastIndexOf(c.value.toString());
+    })
+    //6
+    document.querySelector('#btn6').addEventListener('click', function () {
+        g.innerHTML = val.slice(e.value, f.value);
+    })
+    //7
+    document.querySelector('#btn7').addEventListener('click', function () {
+        g.innerHTML = val.split(/\r?\n|\r/).length;
+    })
+    //8
+    document.querySelector('#btn8').addEventListener('click', function () {
+        g.innerHTML = val.substr(e.value, f.value);
+    })
+    //9
+    document.querySelector('#btn9').addEventListener('click', function () {
+        g.innerHTML = val.toUpperCase();
+    })
+    //10
+    document.querySelector('#btn10').addEventListener('click', function () {
+        g.innerHTML = val.toLowerCase();
+    })
+    //11
+    document.querySelector('#btn11').addEventListener('click', function () {
+        var ss = val.split("");
+        console.log(ss);
+        for (var i = 0; i < ss.length; i++) {
+            if (ss[i] == " ") {
+                ss.splice(i, 1);
+            }
+        }
+        console.log(ss);
+        g.innerHTML = ss.toString();
+    })
+    //12
+    document.querySelector('#btn12').addEventListener('click', function () {
+        switch (c1) {
+            case 0:
+                c.value = d.value;
+            case 1:
+                d.value = c.value;
+        }
+    })
+</script>
+
+</html>

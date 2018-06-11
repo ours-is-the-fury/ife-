@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>IFE ECMAScript</title>
+    <style>
+        select {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <label>
+        <input id="school" name="status" type="radio"> School
+    </label>
+    <label>
+        <input id="company" name="status" type="radio"> Company
+    </label>
+
+    <select id="school-select">
+        <option>北京邮电大学</option>
+        <option>黑龙江大学</option>
+        <option>华中科技大学</option>
+    </select>
+
+    <select id="company-select">
+        <option>百度</option>
+        <option>爱奇艺</option>
+    </select>
+    <script>
+        //当用户选择了 School 的单选框时，显示 School 的下拉选项，隐藏 Company 的下拉选项
+        //当用户选择了 School 的单选框时，显示 Company 的下拉选项，隐藏 School 的下拉选项
+        var btn1 = document.querySelector('#school');
+        var btn2 = document.querySelector('#company');
+        var schoolSelect = document.querySelector('#school-select');
+        var companySelect = document.querySelector('#company-select');
+        btn1.addEventListener("click", function () {
+            companySelect.removeAttribute('style')
+            schoolSelect.style.cssText = "display: inline;"
+        });
+        btn2.addEventListener("click", function () {
+            schoolSelect.removeAttribute('style')
+            companySelect.style.cssText = "display: inline;"
+        });
+    </script>
+</body>
+
+</html>

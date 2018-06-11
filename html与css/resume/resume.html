@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="style_3.css" type="text/css"/>
+    </head>
+    <h1>简历</h1>
+    <div id="all">
+        <div class="det"><h2>基本信息</h2><p>姓名 张三   &nbsp;&nbsp;  性别 男  &nbsp;&nbsp;   应聘职位 Web前端工程师</p></div>
+        <div class="det"><h2>联系方式</h2><p>手机 123456789   email<a href="78355989.com"> 123.com</a>   个人主页 <a href="123">github</a></p></div>
+        <div class="det"><h2>能力描述</h2><p>技术能力<br>熟练掌握htmlcssjs<br><button id="btn">点击查看我的隐藏爱好</button><p id="hobby"></p><br>综合能力<br>良好的共同积极主动努力勤奋</p></div>
+        <div class="det"><h2>教育经历</h2><p>本科<br>百度前端<br><br>研究生<br>百度前端</p></div>
+        <div class="det"><h2>项目经历</h2><p>小赌小赌<br>作为前端<br><br>sandoc<br>作为文档工程师参与</p></div>
+    </div>
+</html>
+<script>
+    document.getElementById("btn").onclick = function() {
+            document.getElementById("hobby").innerHTML = '吉他，摄影，电影';
+        }
+</script>

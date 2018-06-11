@@ -1,0 +1,319 @@
+*{margin:0}
+body{text-align:center}
+button:hover
+{
+background-color:white;
+}
+.crew:hover{
+    filter:alpha(Opacity=10);-moz-opacity:0.8;opacity: 0.2;
+}
+.p1{
+  color:white;
+  height:650px;
+  width:100%;
+  padding:50px 0;
+  background-image:url(./Background.png);
+  background-size: 100% 100%;
+}
+h1{
+  width:334px;
+  height:55px;
+  margin:0 auto;
+}
+.wenzi1{
+  width:500px;
+  height:55px;
+  text-align:center;
+  margin:0 auto 50px ; 
+}
+.singup{
+  border:1px solid gray;
+  width:970px;
+  height:256px;
+  margin:0 auto;
+}
+.wenzi2{
+  font-size:20px;
+  margin:52px auto 1px;
+  width:248px;
+  height:27px;
+}
+.wenzi3{
+  margin:0 auto 40px;
+  width:184px;
+  height:21px;
+}
+input{
+  width:297px;
+  height:40px;
+}
+.button1{
+    background-color:transparent;
+    border: 1px solid gray;
+    color: gray;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.p2{
+  height:700px;
+}
+.wenzi4{
+  padding-top:32px;
+}
+
+.wenzi5{
+  width:500px;
+  height:40px;
+  font-size:30px;
+  margin:22px auto; 
+}
+
+.hezi1{
+  width:970px;
+  height:350px;
+  margin-top:150px;
+  margin-left:calc(50% - 350px );
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+}
+.zuo{
+    float: left;
+}
+.shouji{
+  width:320px;
+  height:150px;
+  margin:0 0 0 40px;
+}
+.duigou{
+  width:320px;
+  height:150px;
+  margin:0 0 0 40px;
+}
+.bi{
+  width:320px;
+  height:150px;
+  margin:0 0 0 40px;
+}
+.tiaoshi{
+  width:320px;
+  height:150px;
+  margin:0 0 0 40px;
+}
+
+.p3{
+    color:white;
+  height:600px;
+  background-image:url(./Background2.png);
+  background-size: 100% 100%;
+}
+.spc{
+  width:400px;
+  padding: 150px;
+}
+.wenzi6{
+  font-size:30px;
+  width:350px;
+  height:100px;
+}
+.wenzi7{
+  width:350px;
+  height:150px;
+}
+.button2{
+   background-color:transparent;
+    border: 1px solid gray;;
+    color: gray;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+.p4{
+  height:400px;
+}
+.wenzi8{
+  font-size:45px;
+  padding-top: 30px;
+}
+.s1{
+  padding:100px 0 0 50px;
+  width:300px;
+  display:inline-block;
+}
+.s2{
+  padding:100px 0 0 50px;
+  width:300px;
+  display:inline-block;
+}
+.s3{
+  padding:100px 0 0 50px;
+  width:300px;
+  display:inline-block;
+}
+.p5{
+  height:600px;
+}
+
+.hezi2{
+    padding-top: 50px;
+   width:970px;
+   display: flex;
+   flex-direction: row;
+   flex-wrap:wrap;
+   margin-left: calc(50% - 400px)
+}
+.f1{
+   width:325px;
+  height:200px;
+}
+.wenzi9{
+    width:325px;
+    height:200px;
+  padding:50px;
+}
+.wenzi10{
+    width:325px;
+    height:200px;
+  padding:50px;
+}
+.f2{
+    width:325px;
+  height:200px;
+}
+.p6{
+  height:800px;
+}
+.wenzi11{
+  font-size:40px;
+  padding:10px ;
+}
+.wenzi18{
+    width:400px;
+    margin:0 auto;
+}
+.fb{
+  width:970px;
+  display: flex;
+   flex-direction: row;
+   flex-wrap:wrap; 
+   margin-left: calc(50% - 400px) 
+}
+.crew{
+    width:400px;
+    height: 300px;
+    margin: 20px;
+}
+.p7{
+  height:500px;
+  width:100%;
+}
+.hezip7{
+  width:972px;
+  margin:0 auto;
+}
+
+.hezi3{
+  width:350px;
+  height:400px;
+  border:1px solid gray;
+  display:inline-block;
+  margin-top:50px;
+}
+.wenzi12{
+  font-size:20px;
+  padding-top:20px;
+  padding-bottom:20px;
+}
+.email{
+  width:250px;
+  height:40px;
+}
+.subject{
+  width:250px;
+  height:40px;
+  margin:30px 0 20px 8px;
+}
+.message{
+  width:250px;
+  margin:30px 0 20px 8px;
+}
+.button3{
+  width:257px;
+  height:40px
+}
+.button3:hover{
+    background-color:black;
+    color:white;
+}
+.contacts{
+  margin-top:50px;
+  display:inline-block;
+  width:350px;
+  height:400px;
+}
+.wenzi13{
+  font-size:40px;
+  padding-top:20px
+}
+.wenzi14{
+  padding-top:20px;
+  padding-left:75px;
+  width:200px;
+  height:80px;
+}
+.wenzi15{
+  width:200px;
+  height:80px;
+  padding-top:20px;
+  padding-left:75px;
+}
+.wenzi16{
+  width:200px;
+  height:80px;
+  padding-top:10px;
+  padding-left:75px;
+}
+.wenzi17{
+  width:200px;
+  height:80px;
+  padding-top:10px;
+  padding-left:75px;
+}
+.dz{
+    float: left;
+}
+.p8{
+  background-color:black;
+  height:250px;
+  width:100%;
+  color:white;
+}
+.hezip8{
+  display: flex;
+  width:1000px;
+  margin:0 auto;
+}
+
+.learn{
+  padding:50px 0 0 60px;
+    height:200px;
+    width:200px;
+}
+.about{
+   padding:50px 0 0 60px;
+    height:200px;
+    width:200px;
+}
+.support{
+   padding:50px 0 0 60px;
+    height:200px;
+    width:200px;
+}

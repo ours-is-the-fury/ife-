@@ -1,0 +1,25 @@
+<div class="left">Left</div>
+<div class="main">Main</div>
+<div class="right">Right</div>
+
+
+
+*{margin:0;padding:0;}
+
+.left{
+        float:left;
+        width:200px;
+        height:200px;
+        background:#F60;
+    }
+.main{
+       float:left;
+       width:200px;
+       height:200px;
+      background:blue;
+}
+.right{
+  width:100%;
+  height:200px;
+  background-color:yellow;
+}

@@ -1,0 +1,244 @@
+*{margin: 0;padding: 0}
+
+
+.order {  
+  height: 30px;  
+  line-height: 60px;  
+  text-align: center;  
+}  
+.order .line {  
+  display: inline-block;  
+  width: 300px;  
+  border-top: 1px solid #ccc ;  
+}  
+.order .txt {  
+  color: #686868;  
+  vertical-align: middle;  
+}
+
+
+.leftnav{
+  width:150px;
+  height:100%;
+  position:fixed;
+  background-color: darkslateblue;
+}
+
+.app{
+  display:block;
+  width:70px;
+  height:70px;
+  margin-left:35px;
+  margin-top: 30px;
+}
+
+.bottomnav{
+  width:80px;
+  height:30px;
+  position:fixed;
+  left:40px;
+  bottom:0;
+}
+.bottomnav1{
+  margin-right: 20px;
+}
+.nav{
+  font-weight:bold;
+  color: white;
+  width:300px;
+  height:100%;
+  position:fixed;
+  left:150px;
+  background-color: rgb(14, 64, 138);
+  padding-right: 30px;
+  padding-left: 20px;
+ }
+ .nav1{
+   color: grey;
+   padding-left: 10px;
+   margin-top: 20px;
+   margin-bottom: 20px;
+ }
+
+ .nav2{
+  padding-left: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+ }
+ .tips{
+  float:right;
+ }
+.bottomg{
+  position:fixed;
+  left:200px;
+  bottom:10px;
+}
+
+.messa{
+  width: 100%;
+  height: 80px;
+  position:fixed;
+  top: 0px;
+  left:500px;
+  border-bottom: 1px solid gray;
+}
+
+.wenzi1{
+  font-size: 20px;
+  padding: 30px;
+}
+
+.me{
+  position:fixed;
+  top: 20px;
+  right: 80px;
+  width: 300px;
+  height: 46px;
+  
+}
+.pme{
+  width: 46px;
+  height: 46px;
+  float: left;
+  margin-right: 20px;
+}
+.dd{
+  position:fixed;
+  top: 40px;
+  right: 30px;
+}
+
+.contacter{
+  position:fixed;
+  top: 130px;
+  left: 500px;
+  width: 378px;
+  height: 100%;
+  border-right: 1px solid gray;
+}
+.search{
+  position:fixed;
+  top: 80px;
+  left: 500px;
+  height: 50px;
+  width: 388px;
+  border-bottom: 1px solid gray;
+}
+.sousuo{
+  width: 300px;
+  height: 20px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.st{
+  position: absolute;
+  left:320px;
+  top:18px;
+}
+
+
+.wenzi2{
+  font-weight: bold;
+  font-size: 20px;
+}
+.cl{
+  width: 358px;
+  height: 100px;
+  border-bottom: 1px solid gray;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+.np{
+  width: 300px;
+  height: 50px;
+}
+.cn{
+  width: 46px;
+  height: 46px;
+  float: left;
+  margin-right: 20px;
+}
+
+.contacting{
+  position:fixed;
+  top: 79px;
+  left: 878px;
+  height: 51px;
+  width: 100%;
+  border-left: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+
+.wenzi3{
+  position: relative;
+  left: 10px;
+  top: 15px;
+  font-weight: bold;
+  font-size: 20px;
+}
+.cd{
+  position: relative;
+  left: 500px;
+  bottom: 10px;
+}
+
+.chat{
+  position:fixed;
+  top: 130px;
+  left: 890px;
+}
+
+.hp{
+  float: left;
+}
+.clear {
+  clear: both;
+}
+
+.ta{
+  position: relative;
+  left: 20px;
+  top: 30px;
+  padding-top: 20px;
+}
+.wenzi4{
+  font-weight: bold;
+}
+.wenzi5{
+  position: relative;
+  left: 20px;
+
+}
+.message{
+  width: 720px;
+  height: 52px;
+  position: relative;
+  left:50px;
+  top:50px;
+}
+.add{
+  position: relative;
+  left:4px;
+  top:107px;
+  z-index:1;
+}
+.cl:hover
+{
+background-color:rgba(77, 77, 77, 0.226);
+}
+.app:hover
+{
+background-color:rgb(2, 4, 104);
+}
+.tips:hover
+{
+background-color:rgb(2, 4, 104)k;
+}
+.st:hover
+{
+background-color:rgba(77, 77, 77, 0.226);
+}

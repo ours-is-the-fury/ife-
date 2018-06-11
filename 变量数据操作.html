@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+</head>
+<body>        
+    <input id="first-number" type="number"  placeholder="第一个数字">
+    <input id="second-number" type="number"  placeholder="第二个数字">
+    <button id="add-btn" onclick = "ad()">加</button>
+    <button id="minus-btn" onclick = "sub()">减</button>
+    <button id="times-btn" onclick = "mu()">乘</button>
+    <button id="divide-btn" onclick = "div()">除</button>
+    <p id="result">运算结果</p>
+    <script>
+        function ad(){     
+            document.getElementById("result").innerHTML =parseInt(document.getElementById("first-number").value)+parseInt(document.getElementById("second-number").value);
+        }
+        function sub(){
+            document.getElementById("result").innerHTML =document.getElementById("first-number").value-document.getElementById("second-number").value;
+        }
+        function mu(){
+            document.getElementById("result").innerHTML =document.getElementById("first-number").value*document.getElementById("second-number").value;
+        } 
+        function div(){
+            document.getElementById("result").innerHTML =document.getElementById("first-number").value/document.getElementById("second-number").value;
+        }
+    </script>
+</body>
+</html>

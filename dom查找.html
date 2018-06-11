@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>IFE ECMAScript</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="news-top" class="section">
+            <h3>Some title</h3>
+            <div class="content">
+                <ul>
+                    <li>
+                        <span>HTML</span>
+                        <a href="">Some Link1</a>
+                    </li>
+                    <li>
+                        <span>JS</span>
+                        <a class="active" href="">Some Link2</a>
+                    </li>
+                    <li>
+                        <span>CSS</span>
+                        <a href="">Some Link3</a>
+                    </li>
+                    <li>
+                        <span>JS</span>
+                        <a href="">Some Link4</a>
+                    </li>
+                </ul>
+            </div>
+            <img src="">
+            <p class="">Some Text</p>
+        </div>
+        <div id="news-normal" class="section">
+            <h3>Some title</h3>
+            <div class="content">
+                <ul>
+                    <li>
+                        <span>HTML</span>
+                        <a href="">Some Link1</a>
+                    </li>
+                    <li>
+                        <span>HTML</span>
+                        <a href="">Some Link2</a>
+                    </li>
+                    <li>
+                        <span>JS</span>
+                        <a class="active" href="#">Some Link3</a>
+                    </li>
+                    <li>
+                        <span>CSS</span>
+                        <a href="">Some Link4</a>
+                    </li>
+                </ul>
+            </div>
+            <img src="">
+            <p class="">Some Text</p>
+        </div>
+    </div>
+    <script>
+
+        function getAllListItem() {
+            document.getElementsByTagName("li")// 返回页面中所有li标签
+        }
+
+        function findAllHtmlSpanInOneSection(sectionId) {
+            var txt = "";
+            var c = document.querySelector('#sectionId').querySelectorAll("span");
+            for (i = 0; i < c.length; i++) {
+                if (c[i].indexOf("HTML" != -1))
+                    txt = txt + c[i].nodeName + "<br>";
+            }
+            console.log("txt")// 返回某个section下所有span中内容为HTML的span标签
+        }
+
+        function findListItem(sectionId, spanCont) {
+            var txt = "";
+            var c = document.querySelector('#sectionId').querySelectorAll("span");
+            for (i = 0; i < c.length; i++) {
+                if (c[i].indexOf("spanCont" != -1))
+                    txt = txt + c[i].nodeName.parentNode + "<br>";
+            }
+            return txt;// 返回某个section下，所有所包含span内容为spanCont的LI标签
+            console.log("txt")
+        }
+
+        function getActiveLinkContent(sectionId) {
+            var txt = "";
+            var c = document.querySelector('#sectionId').querySelectorAll('div.active');
+            for (i = 0; i < c.length; i++) {
+                txt = txt + c[i].innerHTML + "<br>";
+            }
+            console.log("txt")
+        }
+        getActiveLinkContent(sectionId)
+        findListItem(sectionId, spanCont)
+        findAllHtmlSpanInOneSection(sectionId)
+        getAllListItem()
+ // 返回某个section下，class为active的链接中包含的文字内容
+    </script>
+</body>
+
+</html>

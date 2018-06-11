@@ -1,0 +1,26 @@
+  body{
+        margin:0;
+        padding:0;
+        min-width:600px;
+    }
+    .main{
+        float:left;
+        width:100%;
+    }
+    .main_body{
+        margin:0 210px;
+        background:#888;
+        height:200px;
+    }
+    .left,.right{
+        float:left;
+        width:200px;
+        height:200px;
+        background:#F60;
+    }
+    .left{
+        margin-left:-100%;
+    }
+    .right{
+        margin-left:-200px;
+    }

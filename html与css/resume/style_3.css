@@ -1,0 +1,17 @@
+*{margin: 0px}
+h1{background-color:#787878;
+    height:80px;
+    padding-left: 50px;
+    padding-top:50px;
+    margin: 0px; 
+}
+h2{background-color:#C0C0C0;
+    width:200px;height: 100px;
+    display: table-cell;
+    text-align: center;
+    vertical-align:middle;
+    padding-top: 90px;
+float:left}
+p{font-size:150%; }
+div.det{border-bottom: 1px gray solid}
+.det:after{content:".";display:block;height:0;clear:both;visibility:hidden}

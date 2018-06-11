@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>IFE ECMAScript</title>
+    <style>
+        select {
+            display: none;
+        }
+
+        .palette {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .palette li {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+
+        #gif {
+            width: 480px;
+            height: 480px;
+            background: url(http://ife.baidu.com/2016/static/img/erik_ce204002.jpg) no-repeat;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="gif" style="background-position-y:0;"></div>
+    <script>
+        //基于一个我们提供的图片，实现 IFE2016中Erik笑容的动画
+        //图片地址：http://ife.baidu.com/2016/static/img/erik_ce204002.jpg
+        window.onload = function () {
+            var gif = document.querySelector('#gif')
+            var height = parseInt(gif.style.backgroundPositionY)
+            setInterval(function () {
+                if (height == -7680) {
+                    height = 0
+                } else {
+                    height -= 480
+                }
+                gif.style.backgroundPositionY = height + 'px'
+            }, 100)
+        }
+    </script>
+</body>
+
+</html>

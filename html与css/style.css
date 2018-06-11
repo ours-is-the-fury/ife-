@@ -1,0 +1,47 @@
+*{margin:0;padding:0;}
+.head{
+  height:70px;
+  background:black;
+  color:white;
+}
+.ding{
+  margin:0 auto;
+  width:960px;
+  height:70px;
+
+}
+.img{
+  display£ºinline-block;
+  margin-left:50px;
+}
+.dizhi{
+  position:relative;
+  top:-25px;
+  left:700px;
+  margin-right:40px;
+}
+.banner{
+  width:100%;
+  height:250px;
+  background:green;
+}
+#tab-list{
+  width:100%;
+  border-bottom: 1px solid #000;
+  padding-left:calc(50% - 480px);
+}
+li{ display:inline}
+.det{
+  margin:0 auto;
+  width:960px;
+  height:200px;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+}
+.content{
+  width:150px;
+  height:70px;
+  background:green;
+  margin:10px;
+}

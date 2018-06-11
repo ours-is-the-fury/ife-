@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>IFE ECMAScript</title>
+</head>
+<script>
+    function compareNumbers1(a, b)
+{
+  return a - b;
+}
+    function compareNumbers2(a, b)
+{
+  return b - a;
+}
+
+    //将下面数组分别按从大到小以及从小到大进行排序后在console中输出
+    var arr = [43, 54, 4, -4, 84, 100, 58, 27, 140];
+    console.log('Sorted with ltoh:'+ arr.sort(compareNumbers1));
+    console.log('Sorted with htol:'+ arr.sort(compareNumbers2));
+    //将下面数组分别按字母顺序a-z及z-a进行排序，在console中输出
+    var arr = ['apple', 'dog', 'cat', 'car', 'zoo', 'orange', 'airplane'];
+    console.log('Sorted:' + arr.sort());
+    console.log('Sorted:' + arr.sort().reverse());
+    //将下面的二维数组，按照每个元素中第二个数从大到小的顺序进行排序输出，输出结果应该为：
+    var arr = [[10, 14], [16, 60], [7, 44], [26, 35], [22, 63]];
+    var arr2  =new Array();
+    function arr1(){
+        for(i=0;i<arr.length;i++){
+            arr2.push(arr[i][1]);
+        }
+    }
+    arr1()
+    console.log('Sorted with ltoh:'+ arr2.sort(compareNumbers1));
+</script>
+</html>

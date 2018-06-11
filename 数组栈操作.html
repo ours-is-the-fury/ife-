@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>IFE ECMAScript</title>
+</head>
+<input id="queue-input" type="text" >
+<p id="queue-cont">队列内容：apple-&gt;pear</p>    
+<button id="in-btn">入队</button>
+<button id="out-btn">出队</button>
+<button id="font-btn">打印队头元素内容</button>
+<button id="empty-btn">判断队列是否为空</button>
+<script>
+    var arr = new  Array("apple","pear")
+    var result = document.querySelector('#queue-cont');
+    //1 
+    document.querySelector('#in-btn').addEventListener('click', function () {
+        var val = document.querySelector('#queue-input').value.toString();
+        arr.push(val);
+        result.innerHTML="队列内容："+arr.join("-&gt;");
+    })
+    //2
+    document.querySelector('#out-btn').addEventListener('click', function () {
+        arr.pop();
+        result.innerHTML="队列内容："+arr.join("-&gt;");
+    })
+    //3
+    document.querySelector('#font-btn').addEventListener('click', function () {
+        result.innerHTML="队列内容："+arr[0];
+    })
+    //4
+    document.querySelector('#empty-btn').addEventListener('click', function () {
+        if(arr.length==0){
+        result.innerHTML="为空";
+        }else{result.innerHTML="不为空";}
+    })
+</script>
+</html>

@@ -1,0 +1,14 @@
+.main{
+  overfiow:hidden;
+}
+.left{
+  width:30%;
+  height:500px;
+  background-color:red;
+  float: left;
+}
+.right{
+  width:70%;
+  height:500px;
+  background-color:blue;
+}
