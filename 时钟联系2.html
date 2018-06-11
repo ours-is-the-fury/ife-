@@ -1,0 +1,107 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>IFE ECMAScript</title>
+</head>
+
+<body>
+    <select id="year-select">
+        <option value="2000">2000</option>
+        <option value="2001">2001</option>
+        <option value="2002">2002</option>
+        <option value="2032">2003</option>
+    </select>
+    年
+    <select id="month-select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+    </select>
+    月
+    <select id="day-select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+    </select>
+    日
+    <select id="hour-select">
+        <option value="1">01</option>
+        <option value="2">02</option>
+        <option value="3">03</option>
+        <option value="4">04</option>
+        <option value="5">05</option>
+        <option value="6">06</option>
+        <option value="7">07</option>
+        <option value="8">08</option>
+        <option value="9">09</option>
+    </select>
+    时
+    <select id="minite-select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+    </select>
+    分
+    <select id="second-select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+    </select>
+    秒
+    <button type="button" id="btn">set</button>
+    <p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
+
+    <script>
+            var y1 = document.querySelector('#year-select').value;
+            var mo1 = document.querySelector('#month-select').value;
+            var d1 = document.querySelector('#day-select').value;
+            var h1 = document.querySelector('#hour-select').value;
+            var m1 = document.querySelector('#minite-select').value;
+            var s1 = document.querySelector('#second-select').value;
+        document.querySelector('#btn').addEventListener('click', function () {
+            comparetime();
+        })
+        function comparetime() {
+            var today = new Date();
+            var y2 = today.getFullYear();
+            var mo2 = today.getMonth();
+            var d2 = today.getDate();
+            var h2 = today.getHours();
+            var m2 = today.getMinutes();
+            var s2 = today.getSeconds();
+            document.getElementById('result-wrapper').innerHTML ="现在距离 "+y1+"年"+mo1+"月"+d1+"日"+h1+":"+m1+":"+s1+" 还有 "+Math.abs(y1-y2)+"年"+Math.abs(mo1-mo2)+"月"+Math.abs(d1-d2)+"天"+Math.abs(h1-h2)+"小时"+Math.abs(m1-m2)+"分"+Math.abs(s1-s2)+"秒"
+            Math.abs(-1);
+            t = setTimeout('comparetime()', 500)  
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>IFE ECMAScript</title>
+</head>
+<script>
+    console.log(Date());
+    //在页面中显示当前日期及时间，按秒更新
+    //格式为 YYYY 年 MM 月 DD 日 星期 D HH:mm:ss
+    //封装一个函数，把最后的日期时间，按照要求的格式进行包装
+    function startTime() {
+        var today = new Date();
+        var y = today.getFullYear();
+        var mo = today.getMonth() + 1;
+        var da = today.getDate();
+        var d = today.getDay();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        mo = checkTime(mo)
+        da = checkTime(da)
+        h = checkTime(h)
+        m = checkTime(m)
+        s = checkTime(s)
+        document.getElementById('txt').innerHTML = y + '年' + mo + '月' + da + '日' + xingqi() + h + ":" + m + ":" + s+"<br>"+
+        y+"-"+mo+"-"+da+" "+xingqi()+" "+h + ":" + m + ":" + s
+        t = setTimeout('startTime()', 500)
+    }
+    //封装一个函数，来根据某个日期返回这一天是星期几
+    function xingqi() {
+        var today = new Date();
+        var weekday = new Array(7)
+        weekday[0] = "星期日"
+        weekday[1] = "星期一"
+        weekday[2] = "星期二"
+        weekday[3] = "星期三"
+        weekday[4] = "星期四"
+        weekday[5] = "星期五"
+        weekday[6] = "星期六"
+        return weekday[today.getDay()]
+    }
+    //封装一个函数，把月、日、小时等出现个位数的情况前面补充0，补充为两位，比如1变为01
+    function checkTime(i) {
+        if (i < 10) { i = "0" + i }
+        return i
+    }
+</script>
+
+<body onload="startTime()">
+    <div id="txt"></div>
+</body>
+
+</html>
