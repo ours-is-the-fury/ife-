@@ -3,6 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>IFE ECMAScript</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #email-input {
+            height: 25px;
+            width: 200px;
+            margin-left: 50px;
+            margin-top: 50px
+        }
+
+        ul {
+            list-style-type: none
+        }
+
+        li:hover {
+            background-color: rgb(78, 78, 233);
+        }
+
+        #email-sug-wrapper {
+            width: 200px;
+            height: 300px;
+            margin-left: 51px;
+        }
+    </style>
 </head>
 
 <body>
@@ -12,63 +39,104 @@
     </div>
 
 
-
-
-
-
-
-
-
-
     <script>
-        var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
-        var input = document.getElementById("email-input").value
-        document.getElementById("email-input").addEventListener('input',function number() { 
-            prompt();
-            //获取用户输入，生成提示框中的提示内容，将提示内容添加到email - sug - wrapper中
-            //控制email - sug - wrapper的显示 隐藏状态
-        })
-
+        var postfixList = ['@163.com', '@gmail.com', '@126.com', '@qq.com', '@263.net'];
+        var input = document.getElementById("email-input");
+        var ul = document.getElementById("email-sug-wrapper")
+        var nowSelectTipIndex = 0;
+        document.getElementById('email-input').focus()
+        input.oninput = function () {
+            ulhidvis()//获取用户输入，生成提示框中的提示内容，将提示内容添加到email-sug-wrapper中
+            addli()//控制email-sug-wrapper的显示/隐藏状态 
+            cli()
+        }
+        document.onkeydown = function (event) {//键盘操作
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            if (e && e.keyCode == 38) {
+                if (nowSelectTipIndex != 0) {
+                    nowSelectTipIndex = nowSelectTipIndex - 1
+                } else {
+                    nowSelectTipIndex = 4
+                }
+                cle()
+                document.getElementsByTagName("li")[nowSelectTipIndex].style.background = 'rgb(78, 78, 233)';
+            }
+            if (e && e.keyCode == 40) {
+                if (nowSelectTipIndex != 4) {
+                    nowSelectTipIndex = nowSelectTipIndex + 1
+                } else {
+                    nowSelectTipIndex = 0
+                }
+                cle()
+                document.getElementsByTagName("li")[nowSelectTipIndex].style.background = 'rgb(78, 78, 233)';
+            }
+            if (e && e.keyCode == 13) {
+                var li = document.getElementById("email-sug-wrapper").getElementsByTagName("li")
+                input.value = li[nowSelectTipIndex].innerHTML;
+                cle()
+                hid()
+            }
+        }
+        function cle() {//清除选中li样式
+            for (var i = 0; i < 5; i++) {
+                document.getElementsByTagName("li")[i].removeAttribute("style");
+            }
+        }
+        function cli() {//鼠标点击事件
+            var li = document.getElementById("email-sug-wrapper").getElementsByTagName("li")
+            for (i = 0; i < li.length; i++) {
+                li[i].onclick = function () {
+                    input.value = this.innerHTML;
+                    hid();
+                    document.getElementById('email-input').focus()
+                }
+            }
+        }
         function triminput() {
-            var s = input.trim();
-            return s;
-            console.log(s);
-            console.log("s");
-            //拿到input输入框的输入内容trim后返回
+            return input.value.trim(); //拿到input输入框的输入内容trim后返回         
         }
 
         function prompt() {
-            var input = document.getElementById("email-input").value
-            var s = triminput();
-            console.log(s);
-            console.log(input);
-            //获取用户输入
-            //遍历postfixList {
-                //把用户输入和每一个postfix进行结合成为每一个Li
+            var a = triminput();//获取用户输入
+            if (a.indexOf("@") != -1) {
+                a = a.substring(0, a.indexOf("@"))
+                b = a.substring(a.indexOf("@"))
             }
-            //返回生成的提示内容
-        
-
-        /*function 将提示内容添加到email-sug - wrapper中() {
-            //获取生成提示框中的提示内容
-            //将内容添加到email - sug - wrapper中
+            var arr = new Array();
+            for (var i = 0; i < 5; i++) {
+                arr[i] = a + postfixList[i];
+            } return arr;//返回生成的提示内容
         }
 
-        //function 控制email-sug - wrapper的显示 / 隐藏状态() {
-            if 用户输入为空 {
-                隐藏提示框
+        function addli() {//将内容添加到email - sug - wrapper中
+            var a = prompt();//获取生成提示框中的提示内容 
+            var i;
+            ul.innerHTML = "";//clear
+            for (i = 0; i < 5; i++) {
+                var li = new Array();
+                li[i] = document.createElement("li");
+                li[i].innerHTML = a[i];
+                ul.appendChild(li[i]);
+            }
+            document.getElementsByTagName("li")[nowSelectTipIndex].style.background = 'rgb(78, 78, 233)';
+        }
+        function ulhidvis() {//ul的显示与隐藏
+            if (input.value == "") {
+                hid()
             } else {
-                显示提示框
+                vis()
             }
         }
 
-        function 隐藏提示框() {
-            做具体隐藏提示框的操作
+        function hid() {
+            document.getElementById("email-sug-wrapper").style.display = "none";
+            //做具体隐藏提示框的操作
         }
 
-        function 显示提示框() {
-            做具体显示提示框的操作
-        }*/
+        function vis() {
+            document.getElementById("email-sug-wrapper").style.display = "block";
+            //做具体显示提示框的操作
+        }
     </script>
 </body>
 
