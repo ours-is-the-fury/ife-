@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>关于对象的，各种二叉树遍历</title>
+</head>
+
+<body>
+    <script>
+        var tree = {
+            "id": 0,
+            "name": "root",
+            "left": {
+                "id": 1,
+                "name": "Simon",
+                "left": {
+                    "id": 3,
+                    "name": "Carl",
+                    "left": {
+                        "id": 7,
+                        "name": "Lee",
+                        "left": {
+                            "id": 11,
+                            "name": "Fate"
+                        }
+                    },
+                    "right": {
+                        "id": 8,
+                        "name": "Annie",
+                        "left": {
+                            "id": 12,
+                            "name": "Saber"
+                        }
+                    }
+                },
+                "right": {
+                    "id": 4,
+                    "name": "Tony",
+                    "left": {
+                        "id": 9,
+                        "name": "Candy"
+                    }
+                }
+            },
+            "right": {
+                "id": 2,
+                "name": "right",
+                "left": {
+                    "id": 5,
+                    "name": "Carl",
+                },
+                "right": {
+                    "id": 6,
+                    "name": "Carl",
+                    "right": {
+                        "id": 10,
+                        "name": "Kai"
+                    }
+                }
+            }
+        }
+        //第一种学习
+        //用递归 遍历查找对象中与输入name对应的id
+        // 假设id和name均不会重复，根据输入name找到对应的id
+        function findIdByName(s, name) {
+            for (var i in s) {
+                if (typeof (s[i]) == 'object') {
+                    if (s[i].name == name) {
+                        console.log(s[i].id);
+                    }
+                    findIdByName(s[i], name);
+                }
+            }
+        }
+        findIdByName(tree, 'Fate');
+        // 假设id和name均不会重复，根据输入id找到对应的name
+        function findNameById(s, id) {
+            for (var i in s) {
+                if (typeof (s[i]) == 'object') {
+                    if (s[i].id == id) {
+                        console.log(s[i].name);
+                    }
+                    findNameById(s[i], id);
+                }
+            }
+        }
+        findNameById(tree, '6');
+        // 把这个对象中所有的名字以“前序遍历”的方式全部输出到console中
+        function getListWithDLR(s) {
+            console.log(s.name);
+            if (s.left != null) {
+                getListWithDLR(s.left);
+            }
+            if (s.right != null) {
+                getListWithDLR(s.right);
+            }
+        }
+        getListWithDLR(tree);
+        // 把这个对象中所有的名字以“中序遍历”的方式全部输出到console中
+        function getListWithLDR(s) {
+            if (s.left != null) {
+                getListWithLDR(s.left);
+            }
+            console.log(s.name);
+            if (s.right != null) {
+                getListWithLDR(s.right);
+            }
+        }
+        getListWithLDR(tree);
+        // 把这个对象中所有的名字以“后序遍历”的方式全部输出到console中
+        function getListWithLRD(s) {
+            if (s.left != null) {
+                getListWithLRD(s.left);
+            }
+            if (s.right != null) {
+                getListWithLRD(s.right);
+            }
+            console.log(s.name);
+        }
+        getListWithLRD(tree);
+
+
+
+        //第二种学习
+        // 假设id和name均不会重复，根据输入name找到对应的id
+        function findIdByName(name) {
+            function two(obj, test) {
+                if (obj != null) {
+                    if (obj.name == test) {
+                        console.log(obj.id)
+                    }
+                    two(obj.left, test)
+                    two(obj.right, test)
+                }
+            }
+
+            two(tree, name)
+        }
+        // 假设id和name均不会重复，根据输入id找到对应的name
+        function findNameById(id) {
+            function two(obj, test) {
+                if (obj != null) {
+                    if (obj.id == test) {
+                        console.log(obj.name)
+                    }
+                    two(obj.left, test)
+                    two(obj.right, test)
+                }
+            }
+
+            two(tree, id)
+        }
+
+        // 把这个对象中所有的名字以“前序遍历”的方式全部输出到console中
+        function getListWithDLR() {
+            function each(obj) {
+                if (obj != null) {
+                    console.log(obj.name)
+                    each(obj.left)
+                    each(obj.right)
+                }
+            }
+
+            each(tree)
+        }
+
+        // 把这个对象中所有的名字以“中序遍历”的方式全部输出到console中
+        function getListWithLDR() {
+            function each(obj) {
+                if (obj != null) {
+                    each(obj.left)
+                    console.log(obj.name)
+                    each(obj.right)
+                }
+            }
+
+            each(tree)
+        }
+
+        // 把这个对象中所有的名字以“后序遍历”的方式全部输出到console中
+        function getListWithLRD() {
+            function each(obj) {
+                if (obj != null) {
+                    each(obj.left)
+                    each(obj.right)
+                    console.log(obj.name)
+                }
+            }
+            each(tree)
+        }
+    </script>
+</body>
+
+</html>
