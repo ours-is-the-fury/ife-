@@ -8,45 +8,208 @@
             margin: 0;
             padding: 0;
         }
+
+        #tableWrapper {
+            padding: 5px 0 0 20px;
+        }
+
+        #wrapper {
+            padding: 0 0 0 250px;
+        }
+
+        table {
+            margin: 30px 50px;
+            text-align: center;
+            border: 2px solid #a1a1a1;
+            padding: 10px 10px;
+            background: #dddddd;
+            width: 350px;
+            border-radius: 25px;
+        }
+
+        table th {
+            border: 1px solid #aaa;
+            color: #fff;
+            background-color: rgb(183, 178, 247);
+            text-align: center;
+            vertical-align: middle;
+            letter-spacing: 1px;
+        }
+
+        table td {
+            vertical-align: text-top;
+            padding: 6px 15px 6px 6px;
+            border: 1px solid #aaa;
+
+        }
+
+        table tr:nth-child(odd) {
+            background-color: rgb(214, 214, 241);
+        }
+
+        table tr:nth-child(even) {
+            background-color: rgb(162, 156, 247);
+        }
+
+        #region-radio-wrapper {
+            font-size: 20px;
+        }
+
+        #product-radio-wrapper {
+            font-size: 20px;
+        }
     </style>
 </head>
 
 <body>
-    <div id="region-radio-wrapper">
-        <input type="checkbox" name="region" value="华东" >华东
-        <input type="checkbox" name="region" value="华南" >华南
-        <input type="checkbox" name="region" value="华北">华北
-        <input type="checkbox" name="region" value="全选">全选
-        <br/>
-        <input type="checkbox" name="product" value="手机" >手机
-        <input type="checkbox" name="product" value="笔记本" >笔记本
-        <input type="checkbox" name="product" value="智能音箱">智能音箱
-        <input type="checkbox" name="product" value="全选">全选
-        <button type="button" id="btn">生成图表</button>
+
+    <div id="wrapper">
+        <div id="region-radio-wrapper">
+            <input type="checkbox" name="region" value="华东" checked="ture">华东
+            <input type="checkbox" name="region" value="华南" checked="ture">华南
+            <input type="checkbox" name="region" value="华北" checked="ture">华北
+            <input type="checkbox" name="region" value="全选" checked="ture">全选
+            <br/>
+        </div>
+        <div id="product-radio-wrapper">
+            <input type="checkbox" name="product" value="手机" checked="ture">手机
+            <input type="checkbox" name="product" value="笔记本" checked="ture">笔记本
+            <input type="checkbox" name="product" value="智能音箱" checked="ture">智能音箱
+            <input type="checkbox" name="product" value="全选" checked="ture">全选
+        </div>
     </div>
-    <div id="product-radio-wrapper">
-        <table border="1" align="center" width="800PX" id="table">
-            <thead>
-                <tr id="headlist">
-                    <th>商品</th>
-                    <th>地区</th>
-                    <th>1月</th>
-                    <th>2月</th>
-                    <th>3月</th>
-                    <th>4月</th>
-                    <th>5月</th>
-                    <th>6月</th>
-                    <th>7月</th>
-                    <th>8月</th>
-                    <th>9月</th>
-                    <th>10月</th>
-                    <th>11月</th>
-                    <th>12月</th>
-                </tr>
-            </thead>
-            </table>
-    </div>
+    <div id="tableWrapper"></div>
     <script>
+        var region = document.getElementsByName("region");
+        var product = document.getElementsByName("product");
+        var regionCheck = document.querySelector("#region-radio-wrapper");
+        var productCheck = document.querySelector("#product-radio-wrapper");
+
+        function findData() {//根据被选中的商品和地区，获取数据
+            var data = new Array();
+            for (var i = 0; i < region.length; i++) {
+                if (region[i].checked == true) {
+                    data.push(region[i].value);
+                }
+            }
+            for (var i = 0; i < product.length; i++) {
+                if (product[i].checked == true) {
+                    data.push(product[i].value);
+                }
+            }
+            var getData = new Array();
+            for (var i = 0; i < sourceData.length; i++) {
+                if (data.indexOf(sourceData[i].product) != -1 && data.indexOf(sourceData[i].region) != -1) {
+                    getData.push(sourceData[i]);
+                }
+            }
+            return getData;
+        }
+
+        function checkType(wrapper, event) {//  检查勾选状态函数  wrapper 选择类型（地区或者商品），event为触发事件
+            var type = event.target.value
+            if (type == "全选") {//点击的是全选，进行全选操作或者无反应               
+                event.target.checked = "ture";
+                for (var i = 0; i < 3; i++) {
+                    wrapper[i].checked = "ture";
+                }
+            }
+            else {											//点击的是其它选项
+                var flag = 0;
+                for (var i = 0; i < 3; i++) {
+                    if (wrapper[i].value != type) {
+                        console.log(wrapper[i].value)
+                        if (wrapper[i].checked == true) flag++; console.log(flag)
+                    }
+                }
+                if (flag == (wrapper.length - 2) && event.target.checked == true) {	//点击之后满足全选状态
+                    wrapper[3].checked = "ture";
+                }
+                if (flag == (wrapper.length - 2) && event.target.checked == false) {	//当全选时，取消其中一个选项
+                    wrapper[3].checked = "";
+                }
+                if (flag == 0 && event.target.checked == false) {	//点击的是唯一已勾选的，不允许一个都不选
+                    event.target.checked = "ture";
+                }
+            }
+        }
+
+        let tableWrapper = document.querySelector("#tableWrapper");
+        let table = document.createElement("table");
+        table.setAttribute("id", "table");
+
+
+        function createTable(getData) {//创建表格
+            let get = "";
+            getData = findData();
+            table.innerHTML = "";
+            let tr = document.createElement("tr");
+            tr.innerHTML = `
+        <th>商品</th>
+        <th>地区</th>
+        <th>1月</th>
+        <th>2月</th>
+        <th>3月</th>
+        <th>4月</th>
+        <th>5月</th>
+        <th>6月</th>
+        <th>7月</th>
+        <th>8月</th>
+        <th>9月</th>
+        <th>10月</th>
+        <th>12月</th>
+        <th>12月</th>
+    `;
+            table.appendChild(tr);
+            tableWrapper.appendChild(table);
+            for (let i = 0; i < getData.length; i++) { // 遍历拿到的数据数组getData
+                let tr = document.createElement("tr");
+                for (let key in getData[i]) {// 遍历数组中每一个对象
+                    if (getData[i].hasOwnProperty(key)) {
+                        if (!Array.isArray(getData[i][key])) {// 判断getData[i]的value是否是数组，非数组则直接添加到td里
+                            let td = document.createElement("td");
+                            td.innerHTML = getData[i][key];
+                            tr.appendChild(td);
+                        } else {
+                            for (let k = 0; k < getData[i][key].length; k++) {// 如果是数组，则遍历数组，将数组中的每一项分别创建并添加到td
+                                let td = document.createElement("td");
+                                td.innerHTML = getData[i][key][k];
+                                tr.appendChild(td);
+                            }
+                        }
+                    }
+                }
+                table.appendChild(tr);
+            }
+            tableWrapper.appendChild(table);
+        }
+
+        function changeTd() {//交换第一列第二列顺序
+            let ipts1 = regionCheck.querySelectorAll("input[type=checkbox]:checked");
+            let ipts2 = productCheck.querySelectorAll("input[type=checkbox]:checked");
+            let tab = document.querySelector("#table");
+            if (ipts1.length == 1 && ipts2.length != 1) {// 当地区选择了一个，商品选择了多个的时候，第一列第二列交换
+                for (let i = 0; i < tab.rows.length; i++) {
+                    let temp = tab.rows[i].cells[0].innerHTML;
+                    tab.rows[i].cells[0].innerHTML = tab.rows[i].cells[1].innerHTML;
+                    tab.rows[i].cells[1].innerHTML = temp;
+                }
+            }
+        }
+
+        function mergeCell(startrow, col) { //合并重复单元
+            let tab = document.querySelector("#table");
+            for (let i = startrow; i < tab.rows.length - 1; i++) {
+                if (tab.rows[startrow].cells[col].innerHTML === tab.rows[i + 1].cells[col].innerHTML) {// 如果第i行和第i+1行内容相同则隐藏第i+1行，同时第i行的rowSpan+1
+                    tab.rows[i + 1].cells[col].style.display = "none";
+                    tab.rows[startrow].cells[col].rowSpan += 1;
+                }
+                else {
+                    mergeCell(i + 1, 0) // 不相等的时候从第i+1行再次执行次函数
+                }
+            }
+        }
+
         let sourceData = [{
             product: "手机",
             region: "华东",
@@ -83,107 +246,28 @@
             product: "智能音箱",
             region: "华南",
             sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
-        }];
-
-        var btn = document.getElementById("btn");
-        var region = document.getElementsByName("region");
-        var product = document.getElementsByName("product");
-        var arr2 = new Array;
-        var table = document.getElementById("table");
-       
-        btn.addEventListener('click', function (){
-
-            console.log(table.childNodes[3]!=undefined)
-            choose()
-            maketable()
-           
-        })
-        function choose() {
-            var i
-            var n
-            arr2.splice(0,arr2.length);
-            for (i = 0; i < 3; i++) {
-                if (region[i].checked) {
-                    for (n = 0; n < 3; n++) {
-                        if (product[n].checked) {
-                            arr2.push(finddate(product[n].value, region[i].value))                           
-                        }
-                    }
-
-                } 
-
-            }
-
+        }]
+        var s = findData()
+        createTable(s)
+        changeTd()
+        mergeCell(1, 0)
+        regionCheck.onclick = function (event) {
+            checkType(region, event);
         }
-
-        function finddate(product, region) {
-            var arr1 = [product, region]
-            for (var i = 0; i < 9; i++) {
-                if (sourceData[i].region == region && sourceData[i].product == product) {
-                    arr1 = arr1.concat(sourceData[i].sale)
-                   
-                }
-            }
-            return arr1//返回数据
+        regionCheck.addEventListener("click", createTable, false);
+        regionCheck.addEventListener("click", changeTd, false);
+        regionCheck.addEventListener("click", function () {
+            mergeCell(1, 0);
+        }, false);
+        productCheck.onclick = function (event) {
+            checkType(product, event);
         }
-
-        function maketable() {
-            var tbody = document.createElement("tbody");
-            var i;
-            var n; 
-            table.appendChild(tbody);
-            for (i = 0; i < arr2.length; i++) {
-                var tr = new Array;
-                tr[i] = document.createElement("tr");
-                tbody.appendChild(tr[i]);
-                for (n = 0; n < 14; n++) {
-                    var td = new Array;//创建td
-                    td[n] = document.createElement("td");    
-                    tr[i].appendChild(td[n]);                      
-                    td[n].innerHTML = arr2[i][n];
-                }
-            }
-        }
-        function cleartable(){
-            var tbs=document.getElementsByTagName('tbody'); 
-            console.log(tbs)
-            if(tbs.length=1){
-                table.removeChild(tbs[0]);  
-        }}
-
-        /*var region = document.getElementsByName("region")
-        var product = document.getElementsByName("product")
-        function regionall() {
-            for (i = 0; i < 4; i++) {
-                region[i].checked = "checked";
-            }
-        }
-        function productall() {
-            for (i = 0; i < 4; i++) {
-                region[i].checked = "checked";
-            }
-        }
-
-        region[1].onclick = function sing() {
-            var flag;
-            if (this.checked) {
-                this.checked = "checked"
-            }
-            for (i = 0; i < 3; i++) {
-                if (region[i].checked) {
-                    flag = flag + 1
-                    console.log(flag)
-                }
-            }
-            if (flag == 3) {
-                region[4].checked = "checked"
-            }else{
-                region[4].checked = ""
-            }
-        }*/
-        
-
-
+        productCheck.addEventListener("click", createTable, false);
+        productCheck.addEventListener("click", changeTd, false);
+        productCheck.addEventListener("click", function () {
+            mergeCell(1, 0)
+        }, false);
     </script>
 </body>
+
 </html>
