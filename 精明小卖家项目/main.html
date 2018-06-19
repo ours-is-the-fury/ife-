@@ -9,16 +9,18 @@
             padding: 0;
         }
 
-        #tableWrapper {
-            padding: 5px 0 0 20px;
+        #wrapper {
+            width: 300px;
+            height: 70px;
+            padding: 20px 40px;
         }
 
-        #wrapper {
-            padding: 0 0 0 250px;
+        #tableWrapper {
+            display: inline-block;
+            width: 750px;
         }
 
         table {
-            margin: 30px 50px;
             text-align: center;
             border: 2px solid #a1a1a1;
             padding: 10px 10px;
@@ -58,6 +60,21 @@
         #product-radio-wrapper {
             font-size: 20px;
         }
+
+        #graphs {
+            position: absolute;
+            width: 650px;
+            left: 800px;
+            top: 0px;
+        }
+
+        #bar-wrapper {
+            display: inline-block;
+        }
+
+        #line-wrapper {
+            display: inline-block;
+        }
     </style>
 </head>
 
@@ -79,13 +96,177 @@
         </div>
     </div>
     <div id="tableWrapper"></div>
+    <div id="graphs">
+        <div id="bar-wrapper">
+            <svg id="svg" width='650' height='350' xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+        <div id="line-wrapper">
+            <canvas id="canvas" width="650" height="350"></canvas>
+        </div>
+    </div>
+
     <script>
+
+        //绘制柱状图
+        function createBar(data) {
+            // 绘制柱状图，参数data来自于invokeFn()的返回值，支持多数据
+            let svg = document.getElementById('svg');
+            svg.innerHTML = '';
+            // 获取data中所有销量的最大值
+            let arr = [];
+            for (let i = 0; i < data.length; i++) {
+                let per_max = Math.max.apply(null, data[i].sale);
+                arr.push(per_max);
+            };
+            let all_max = Math.max.apply(null, arr);
+            let t = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+            const axisY = 300;  // 代表Y轴的有效长度，不包含富余，下同
+            const axisX = 600;
+            let numY = 6;                       // 纵轴均分为6段
+            let unitY_px = axisY / numY;        // 纵轴上，每段的像素长度(50px)
+            let unitY_data = all_max / numY;    // 纵轴上，每段的数据长度
+            let ratioY = axisY / all_max;       // 纵轴上，每单位数据的像素数
+            let numX = 12;                      // 横轴均分为12段
+            let unitX_px = axisX / numX;        // 横轴上，每刻度的像素长度(50px)
+            // 绘制坐标轴：有效刻度 + 富余50
+            let str_axisY = `<line x1='50' y1='350' x2='50' y2='50' stroke='#000' />`;
+            let str_axisX = `<line x1='50' y1='350' x2='650' y2='350' stroke='#000' />`;
+            // 绘制纵轴刻度 + 文字
+            let str_scaleY = '';        // 将Y轴上的刻度，存储在一个字符串中
+            let str_textY = '';         // 将Y轴上的文字，存储在一个字符串中
+            for (let i = 1; i <= numY; i++) {
+                let y = 350 - unitY_px * i;            // 每个Y轴刻度的纵坐标
+                let tY = Math.round(unitY_data * i);   // 每个Y轴数字的值（取整）
+                str_scaleY += `<line x1='50' y1='${y}' x2='45' y2='${y}' stroke='#000' />`;
+                str_textY += `<text x='20' y='${y + 3}'>${tY}</text>`;    //  y+3：文字中心与刻度对齐
+            };
+            let strY = str_scaleY + str_textY + str_axisY;
+            // 绘制纵轴刻度 + 文字
+            let str_scaleX = '';
+            let str_textX = '';
+            for (let i = 0; i < 12; i++) {
+                let x = 50 + unitX_px * i;        // 每个X轴刻度的横坐标
+                str_scaleX += `<line x1='${x}' y1='350' x2='${x}' y2='345' stroke='#000' />`;
+                str_textX += `<text x='${x + 16}' y='370'>${t[i]}</text>`;    // x+16：文字中心与每段中心对齐
+            };
+            let strX = str_scaleX + str_textX + str_axisX;
+            // 绘制基线（与绘制纵轴刻度类似）
+            let str_baseLine = '';
+            for (let i = 1; i <= numY; i++) {
+                let y = 350 - unitY_px * i;
+                str_baseLine += `<line x1='50' y1='${y}' x2='650' y2='${y}' stroke='#ccc' />`;
+            };
+            // 绘制柱子
+            let color = ["#60acfc", "#32d3eb", "#5bc49f", "#feb64d", "#ff7c7c", "#9287e7", "#60acfc", "#32d3eb", "#5bc49f"];  // 为各个柱子填充不同的颜色
+            let len = data.length;
+            let str_bar = '';
+            let w = unitX_px / (len + 2);         // 柱子的宽度 = unitX_px / (柱子总数 + 2)
+            for (let i = 0; i < len; i++) {
+                let sale = data[i].sale;
+                for (let j = 0; j < 12; j++) {
+                    let x = 50 + unitX_px * j + w * i + w;              // 最后再加一个w：与每段中心对齐
+                    let h = sale[j] * ratioY;                           // 每个柱子的像素高度
+                    let y = 350 - h;                                    // 每个柱子左上角的纵坐标
+                    str_bar += `<rect x='${x}' y='${y}' width='${w}' height='${h}' fill='${color[i]}' />`;
+                }
+            }
+            svg.innerHTML = strY + strX + str_baseLine + str_bar;// 渲染所有图形元素
+        }
+        //创建折线图
+        function createLine(data) {
+            // 每次调用要先清空原图，重置画布
+            let line_wrappper = document.getElementById('line-wrapper');
+            line_wrappper.innerHTML = '';
+            line_wrappper.innerHTML = `<canvas id="canvas" width="650" height="400"></canvas>`;
+            // 获取data中所有销量的最大值
+            let arr = [];
+            for (let i = 0; i < data.length; i++) {
+                let per_max = Math.max.apply(null, data[i].sale);
+                arr.push(per_max);
+            };
+            let all_max = Math.max.apply(null, arr);
+            let canvas = document.getElementById('canvas');
+            let ctx = canvas.getContext('2d');
+            let t = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+            const axisY = 300;                      // 代表Y轴的有效长度，不包含富余，下同
+            const axisX = 600;
+            let numY = 6;                           // 纵轴均分为6段
+            let unitY_px = axisY / numY;            // 纵轴上，每段的像素长度(50px)
+            let unitY_data = all_max / numY;        // 纵轴上，每段的数据长度
+            let ratioY = axisY / all_max;           // 纵轴上，每单位数据的像素数
+            let numX = 12;                          // 横轴均分为12段
+            let unitX_px = axisX / numX;            // 横轴上，每刻度的像素长度(50px)
+            // 绘制坐标轴：有效刻度 + 富余50
+            ctx.beginPath();
+            ctx.moveTo(50.5, 50.5);
+            ctx.lineTo(50.5, 50.5 + axisY);
+            ctx.lineTo(650.5, 50.5 + axisY);
+            ctx.stroke();
+            // 绘制纵轴刻度 + 文字
+            for (let i = 1; i <= numY; i++) {
+                let y = 350.5 - unitY_px * i;          // 每个Y轴刻度的纵坐标
+                let tY = Math.round(unitY_data * i);   // 每个Y轴数字的值（取整）     
+                // 刻度
+                ctx.beginPath();
+                ctx.moveTo(50.5, y);
+                ctx.lineTo(45.5, y);
+                ctx.stroke();
+                // 文字
+                ctx.fillText(`${tY}`, 20, y + 3);    //  y+3：文字中心与刻度对齐
+            }
+            // 绘制横轴刻度 + 文字
+            for (let i = 0; i < 12; i++) {
+                let x = 50.5 + unitX_px * i;        // 每个X轴刻度的横坐标
+                // 刻度
+                ctx.beginPath();
+                ctx.moveTo(x, 350.5);
+                ctx.lineTo(x, 345.5);
+                ctx.stroke();
+                ctx.fillText(t[i], x - 10, 370);       // x-10：文字中心与刻度对齐
+            }
+            // 绘制基线（与横轴重叠的不绘制）
+            for (let i = 1; i <= numY; i++) {
+                let y = 350.5 - unitY_px * i;
+                ctx.beginPath();
+                ctx.moveTo(50.5, y);
+                ctx.lineTo(650.5, y);
+                ctx.strokeStyle = '#ccc';
+                ctx.stroke();
+            }
+            // 绘制数据点
+            let color = ["#60acfc", "#32d3eb", "#5bc49f", "#feb64d", "#ff7c7c", "#9287e7", "#60acfc", "#32d3eb", "#5bc49f"];  // 为各个数据点、线条填充不同的颜色
+            for (let i = 0; i < data.length; i++) {
+                let sale = data[i].sale;
+                for (let j = 0; j < 12; j++) {
+                    let x = 50.5 + unitX_px * j;                    // 每个数据点的横坐标
+                    let y = 350.5 - sale[j] * ratioY;               // 每个数据点的纵坐标
+                    if (j == 0) {                                   // i为0时，第一个点，无需绘制线条
+                        ctx.beginPath();
+                        ctx.arc(x, y, 4, 0, 2 * Math.PI);
+                        ctx.fillStyle = `${color[i]}`;
+                        ctx.fill();
+                    } else {
+                        let x_pre = 50.5 + unitX_px * (j - 1);      // 上个数据点的横坐标
+                        let y_pre = 350.5 - sale[j - 1] * ratioY;   // 上个数据点的纵坐标
+                        ctx.beginPath();
+                        ctx.arc(x, y, 4, 0, 2 * Math.PI);
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(x_pre, y_pre);
+                        ctx.fillStyle = `${color[i]}`;
+                        ctx.strokeStyle = `${color[i]}`;
+                        ctx.fill();
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
         var region = document.getElementsByName("region");
         var product = document.getElementsByName("product");
         var regionCheck = document.querySelector("#region-radio-wrapper");
         var productCheck = document.querySelector("#product-radio-wrapper");
-
-        function findData() {//根据被选中的商品和地区，获取数据
+        //根据被选中的商品和地区，获取数据
+        function findData() {
             var data = new Array();
             for (var i = 0; i < region.length; i++) {
                 if (region[i].checked == true) {
@@ -105,10 +286,10 @@
             }
             return getData;
         }
-
-        function checkType(wrapper, event) {//  检查勾选状态函数  wrapper 选择类型（地区或者商品），event为触发事件
+        //检查勾选状态函数  wrapper 选择类型（地区或者商品），event为触发事件
+        function checkType(wrapper, event) {
             var type = event.target.value
-            if (type == "全选") {//点击的是全选，进行全选操作或者无反应               
+            if (type == "全选") {                       //点击的是全选，进行全选操作或者无反应               
                 event.target.checked = "ture";
                 for (var i = 0; i < 3; i++) {
                     wrapper[i].checked = "ture";
@@ -118,8 +299,7 @@
                 var flag = 0;
                 for (var i = 0; i < 3; i++) {
                     if (wrapper[i].value != type) {
-                        console.log(wrapper[i].value)
-                        if (wrapper[i].checked == true) flag++; console.log(flag)
+                        if (wrapper[i].checked == true) flag++;
                     }
                 }
                 if (flag == (wrapper.length - 2) && event.target.checked == true) {	//点击之后满足全选状态
@@ -137,11 +317,8 @@
         let tableWrapper = document.querySelector("#tableWrapper");
         let table = document.createElement("table");
         table.setAttribute("id", "table");
-
-
-        function createTable(getData) {//创建表格
-            let get = "";
-            getData = findData();
+        //创建表格
+        function createTable(getData) {
             table.innerHTML = "";
             let tr = document.createElement("tr");
             tr.innerHTML = `
@@ -162,11 +339,11 @@
     `;
             table.appendChild(tr);
             tableWrapper.appendChild(table);
-            for (let i = 0; i < getData.length; i++) { // 遍历拿到的数据数组getData
+            for (let i = 0; i < getData.length; i++) {          // 遍历拿到的数据数组getData
                 let tr = document.createElement("tr");
-                for (let key in getData[i]) {// 遍历数组中每一个对象
+                for (let key in getData[i]) {                   // 遍历数组中每一个对象
                     if (getData[i].hasOwnProperty(key)) {
-                        if (!Array.isArray(getData[i][key])) {// 判断getData[i]的value是否是数组，非数组则直接添加到td里
+                        if (!Array.isArray(getData[i][key])) {  // 判断getData[i]的value是否是数组，非数组则直接添加到td里
                             let td = document.createElement("td");
                             td.innerHTML = getData[i][key];
                             tr.appendChild(td);
@@ -183,8 +360,8 @@
             }
             tableWrapper.appendChild(table);
         }
-
-        function changeTd() {//交换第一列第二列顺序
+        //交换第一列第二列顺序
+        function changeTd() {
             let ipts1 = regionCheck.querySelectorAll("input[type=checkbox]:checked");
             let ipts2 = productCheck.querySelectorAll("input[type=checkbox]:checked");
             let tab = document.querySelector("#table");
@@ -196,8 +373,8 @@
                 }
             }
         }
-
-        function mergeCell(startrow, col) { //合并重复单元
+        //合并重复单元
+        function mergeCell(startrow, col) {
             let tab = document.querySelector("#table");
             for (let i = startrow; i < tab.rows.length - 1; i++) {
                 if (tab.rows[startrow].cells[col].innerHTML === tab.rows[i + 1].cells[col].innerHTML) {// 如果第i行和第i+1行内容相同则隐藏第i+1行，同时第i行的rowSpan+1
@@ -209,7 +386,7 @@
                 }
             }
         }
-
+        //原始数据
         let sourceData = [{
             product: "手机",
             region: "华东",
@@ -247,26 +424,63 @@
             region: "华南",
             sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
         }]
-        var s = findData()
-        createTable(s)
+        //初始化
+        createTable(findData())
+        createLine(findData())
+        createBar(findData())
         changeTd()
         mergeCell(1, 0)
+
+
+        //事件响应
         regionCheck.onclick = function (event) {
             checkType(region, event);
+            createTable(findData())
+            createLine(findData())
+            createBar(findData())
+            changeTd()
+            mergeCell(1, 0)
         }
-        regionCheck.addEventListener("click", createTable, false);
-        regionCheck.addEventListener("click", changeTd, false);
-        regionCheck.addEventListener("click", function () {
-            mergeCell(1, 0);
-        }, false);
+
         productCheck.onclick = function (event) {
             checkType(product, event);
-        }
-        productCheck.addEventListener("click", createTable, false);
-        productCheck.addEventListener("click", changeTd, false);
-        productCheck.addEventListener("click", function () {
+            createTable(findData())
+            createLine(findData())
+            createBar(findData())
+            changeTd()
             mergeCell(1, 0)
-        }, false);
+        }
+        //鼠标悬浮制作图标
+        table.onmouseover = function (event) {
+            let tar = event.target
+            if (tar.nodeName.toLowerCase() === 'td') {
+                let tr = tar.parentNode;
+                tr.style.color = "yellow";
+                let tdList = tr.childNodes;
+                let arr = [];
+                for (let i = 2; i < tdList.length; i++) {
+                    arr.push(Number(tdList[i].textContent));
+                }
+                let getData = [{
+                    product: 'abather',//内容无关图表的制作任意设置
+                    region: 'abather',//内容无关
+                    sale: arr//
+                }]
+                //console.log(arr)
+                createBar(getData);
+                createLine(getData);
+            }
+        }
+        //鼠标离开重新作出已选选项图表
+        table.onmouseout = function (event) {
+            let tar = event.target
+
+            let tr = tar.parentNode;
+            tr.style.color = "black";
+            let oldData = findData();
+            createBar(oldData);
+            createLine(oldData);
+        }
     </script>
 </body>
 
