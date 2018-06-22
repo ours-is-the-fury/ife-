@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div v-text="content">hello {{msg}}</div>
+        <!--text是以文ben解析内容-->
+        <div v-html="content">hello {{msg}}</div>
+        <!--html是以html解析内容-->
+        <div @click="handleClick">hello {{msg}}</div>
+        <!--text是以文档解析内容   v-on 简写@-->
+        <div>{{content}}</div>
+        <!--插值法-->
+        <div v-bind:title="'dellli '+title">abather</div>
+        <!--属性绑定   v-bind:可以缩写为:   -->
+        <input v-model="content" />
+        <div>{{content}}</div>
+        <!--双向数据绑定   -->
+        姓
+        <input v-model="firstname" /> 名
+        <input v-model="lastname" />
+        <div>{{fullName}}</div>
+        <div>{{count}}</div>
+        <div v-if="show">hello</div>
+        <!-- v-if增删节点，v-show隐藏显示节点  -->
+        <button @click="handleClick2">hid</button>
+        <ul>
+            <li v-for="item of list" :key="item">{{item}}</li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el: "#root",
+            template: '',
+            data: {
+                content: "<h1>hello</h1>",
+                tite: 'this is hoole world ',
+                firstname: '',
+                lastname: '',
+                count: 0,
+                show: true,
+                list: [1, 2, 3]
+            },
+            methods: {               //方法
+                handleClick: function () {
+                    this.content = "world"
+                },
+                handleClick2: function () {
+                    this.show = !this.show
+                }
+            },
+            computed: {      //计算属性
+                fullName: function () {
+                    return this.firstname + ' ' + this.lastname
+                }
+            },
+            watch: {       //监听
+                firstname: function () {
+                    this.count++
+                },
+                lastname: function () {
+                    this.count++
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

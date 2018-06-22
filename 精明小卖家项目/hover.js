@@ -1,4 +1,5 @@
 //鼠标悬浮制作图标
+var arr = new Array;
 table.onmouseover = function (event) {
     let tar = event.target
     if (tar.nodeName.toLowerCase() === 'td') {
@@ -22,7 +23,6 @@ table.onmouseover = function (event) {
 //鼠标离开重新作出已选选项图表
 table.onmouseout = function (event) {
     let tar = event.target
-
     let tr = tar.parentNode;
     tr.style.color = "black";
     let oldData = findData();

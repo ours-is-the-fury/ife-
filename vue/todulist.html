@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">  <!--模版-->
+        <div>
+            <input v-model="inputValue" />
+            <button @click="handleSubmit">tijaio</button>
+        </div>
+        <ul>
+            <todo-item 
+            v-for = "(item,index) of list" 
+            :key="index" 
+            :content="item"
+            :index="index"
+            @delete="handleDelete"
+            ></todo-item><!--通过定义属性传递值-->
+        </ul>
+    </div>
+    <script>
+        Vue.component('todo-item',{   //组件也就是实例，能添加data methods
+            props: ['content','index'],       
+            template:'<li @click="handleClick">{{content}}</li>',
+            methods:{
+                handleClick:function(){
+                    this.$emit('delete',this.index)
+                }
+            }
+        })
+        //var TodoItem = {
+        //    template:'<li>item</li>'    定义局部组件
+        //}
+        new Vue({   //实例
+            el: "#root",    //如果没有定义实例就会去找挂载点
+            //components:{
+            //    'todo-item':TodoItem  局部组件调用
+            //},
+            data: {
+                inputValue: '',
+                list: []
+            },
+            methods: {
+                handleSubmit: function () {
+                    this.list.push(this.inputValue)
+                    this.inputValue = " "
+                },
+                handleDelete: function(index){
+                    this.list.splice(index,1)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
